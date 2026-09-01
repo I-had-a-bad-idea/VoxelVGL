@@ -1,6 +1,6 @@
 #include "VGL/renderer.h"
 
-void Renderer::create_logical_device() {
+void Renderer::create_logical_device(bool wireframe) {
     const std::vector<const char*> device_extensions {VK_KHR_SWAPCHAIN_EXTENSION_NAME};
 
     VkPhysicalDeviceVulkan12Features enabled_vk_12_features{
@@ -18,6 +18,7 @@ void Renderer::create_logical_device() {
         .dynamicRendering = true,
     };
     VkPhysicalDeviceFeatures enabled_vk_10_features{
+        .fillModeNonSolid = (wireframe) ? VK_TRUE : VK_FALSE,
         .samplerAnisotropy = VK_TRUE
     };
 

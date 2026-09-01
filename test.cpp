@@ -8,7 +8,7 @@
 
 int main() {
     std::cout << "Starting...\n";
-    Renderer renderer("Test", 1280, 720, true); // Create a renderer with window dimensions + capture mouse
+    Renderer renderer("Test", 1280, 720, true, nullptr, false, UINT32_MAX); // Create a renderer with window dimensions + capture mouse
     Scene scene; // A scene is used to group objects
     
     // Load meshes, textures and shaders

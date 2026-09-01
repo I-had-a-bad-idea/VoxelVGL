@@ -1,7 +1,7 @@
 #include "VGL/renderer.h"
 
 
-void Renderer::create_graphics_pipeline(Shader& shader) {
+void Renderer::create_graphics_pipeline(Shader& shader, bool wireframe) {
     VkPushConstantRange push_constant_range {
         .stageFlags = VK_SHADER_STAGE_VERTEX_BIT,
         .size = sizeof(PushConstants)
@@ -89,6 +89,7 @@ void Renderer::create_graphics_pipeline(Shader& shader) {
     };
     VkPipelineRasterizationStateCreateInfo rasterization_state{
         .sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO,
+        .polygonMode = (wireframe) ? VK_POLYGON_MODE_LINE : VK_POLYGON_MODE_FILL,
         .cullMode = VK_CULL_MODE_NONE,
         .frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE,
         .lineWidth = 1.0f

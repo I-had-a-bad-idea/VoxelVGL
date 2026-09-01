@@ -12,7 +12,9 @@ inline void Renderer::vk_check_swapchain(VkResult result) {
 	}
 }
 
-Renderer::Renderer(std::string name, int w, int h, bool capture_mouse, SDL_Window* window_, uint32_t preferred_device_index) {
+Renderer::Renderer(std::string name, int w, int h, bool capture_mouse, SDL_Window* window_, bool wireframe_, uint32_t preferred_device_index)
+    : wireframe(wireframe_)
+{
     std::cout << "Initializing up SDL...\n";
     init_sdl();
     std::cout << "Initializing up Volk...\n";
@@ -32,7 +34,7 @@ Renderer::Renderer(std::string name, int w, int h, bool capture_mouse, SDL_Windo
     get_queue_family_with_graphics_support(queue_families);
 
     std::cout << "Creating logical device...\n";
-    create_logical_device();
+    create_logical_device(wireframe);
     std::cout << "Getting device queue...\n";
     graphics_queue = get_device_queue(queue_info.queue_family);
 
@@ -338,7 +340,7 @@ Texture Renderer::load_texture(std::string filepath) {
 Shader Renderer::load_shader(std::string filepath) {
     Shader shader(filepath, device, slang_session);
     std::cout << "Creating graphics pipeline for shader...\n";
-    create_graphics_pipeline(shader);
+    create_graphics_pipeline(shader, wireframe);
 
     return shader;
 }

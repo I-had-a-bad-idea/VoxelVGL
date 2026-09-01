@@ -22,6 +22,7 @@ A "fork" of VGL, that focuses on Voxel games
     - [Loading meshes directly from mesh data](#loading-meshes-directly-from-mesh-data)
     - [Near and far plane](#near-and-far-plane)
     - [Using a custom SDL window](#using-a-custom-sdl-window)
+    - [Wireframe mode](#wireframe-mode)
     - [Choosing the device](#choosing-the-device)
   - [Licenses for textures under asses/Textures](#licenses-for-textures-under-assestextures)
 
@@ -60,7 +61,7 @@ A minimal usage file could look like this
 
 int main() {
     std::cout << "Starting...\n";
-    Renderer renderer("Test", 1280, 720, true); // Create a renderer with window dimensions + capture mouse
+    Renderer renderer("Test", 1280, 720, true, nullptr, false, UINT32_MAX); // Create a renderer with window dimensions + capture mouse
     Scene scene; // A scene is used to group objects
     
     // Load meshes, textures and shaders
@@ -173,7 +174,7 @@ int main() {
 
             if (event.type == SDL_EVENT_MOUSE_MOTION) {
                 float mouse_x = (float)event.motion.xrel;
-                float mouse_y = -(float)event.motion.yrel;
+                float mouse_y = (float)event.motion.yrel;
 
                 float next_pitch = glm::clamp(
                     pitch - mouse_y * mouse_sensitivity,
@@ -254,9 +255,21 @@ To use your own window, pass it to the renderer, when creating it:
 Renderer renderer("Test", 1280, 720, true, your_window); // Create a renderer with window dimensions + capture mouse
 ```
 
+### Wireframe mode
+You can use wireframe mode to see the triangles, instead of them being filled out.
+Simply set the argument to true when creating the renderer:
+
+```cpp
+Renderer renderer("Test", 1280, 720, false, your_window, true); // Create a renderer with window dimensions + wireframe mode enabled
+```
+
 ### Choosing the device
 You can choose the device used, by passing the device index when creating the renderer.
 (device referes to the GPU you want to use, as some systems may have multiple GPUs).
+
+```cpp
+Renderer renderer("Test", 1280, 720, false, nullptr, false, 1); // Create a renderer with specified device
+```
 
 ## Licenses for textures under asses/Textures
 <Gravel 041> <Grass 005> from ambientCG.com, licensed under the Creative Commons CC0 1.0 Universal License.         

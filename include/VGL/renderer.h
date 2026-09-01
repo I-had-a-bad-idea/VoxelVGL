@@ -56,7 +56,7 @@ public:
     static constexpr uint32_t max_textures = 4096;
     static constexpr uint32_t max_objects = 4096;
 
-    Renderer(std::string name, int w, int h, bool capture_mouse, SDL_Window* window = nullptr, uint32_t preferred_device_index = UINT32_MAX);
+    Renderer(std::string name, int w, int h, bool capture_mouse, SDL_Window* window = nullptr, bool wireframe = false, uint32_t preferred_device_index = UINT32_MAX);
 
     Mesh load_mesh(std::string filepath);
     Mesh load_mesh(MeshData mesh_data);
@@ -132,7 +132,7 @@ private:
     void get_queue_family_with_graphics_support(std::vector<VkQueueFamilyProperties> queue_families, bool check_presentation_support = true);
 
     // Logical device
-    void create_logical_device();
+    void create_logical_device(bool wireframe);
     VkQueue get_device_queue(uint32_t queue_family);
 
     // Window / Surface
@@ -166,13 +166,15 @@ private:
     void create_slang_session();
 
     // Rendering pipeline
-    void create_graphics_pipeline(Shader& shader);
+    void create_graphics_pipeline(Shader& shader, bool wireframe);
 
     inline void vk_check_swapchain(VkResult result);
     void update_swapchain();
 
 
 private:
+    bool wireframe = false;
+
     uint32_t image_index {0};
     uint32_t frame_index {0};
     bool swapchain_update_required {false};

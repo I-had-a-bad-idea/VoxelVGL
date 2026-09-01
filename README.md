@@ -1,8 +1,16 @@
-# VGL
-A vulkan graphics library (may be extended with compute in the future)
+# VoxelVGL
+A "fork" of VGL, that focuses on Voxel games
+
+## Fork part
+
+1. Clone this repo
+2. Add VGL as a remote (`git remote add upstream https://github.com/I-had-a-bad-idea/VGL.git`)
+3. Now you can fetch/merge from VGL (`upstream`)
+4. and push to this fork (`origin`)
 
 ## Overview
-- [VGL](#vgl)
+- [VoxelVGL](#voxelvgl)
+  - [Fork part](#fork-part)
   - [Overview](#overview)
   - [Including the library](#including-the-library)
   - [Usage](#usage)

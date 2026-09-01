@@ -66,6 +66,7 @@ public:
     void render_scene(const Scene& scene);
 
     void destroy_mesh(Mesh mesh);
+    void destroy_meshes(const std::vector<Mesh> meshes);
     void destroy_texture(Texture texture);
     void destroy_shader(Shader shader);
 

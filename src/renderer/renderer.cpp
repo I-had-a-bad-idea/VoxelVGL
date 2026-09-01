@@ -349,6 +349,18 @@ void Renderer::destroy_mesh(Mesh mesh) {
 	vk_check(vkDeviceWaitIdle(device));
     mesh.destroy(allocator);
 }
+
+void Renderer::destroy_meshes(const std::vector<Mesh> meshes) {
+    if (meshes.empty()) {
+        return;
+    }
+
+	vk_check(vkDeviceWaitIdle(device));
+    for (Mesh mesh : meshes) {
+        mesh.destroy(allocator);
+    }
+}
+
 void Renderer::destroy_texture(Texture texture) {
     vk_check(vkDeviceWaitIdle(device));
     texture.destroy(device, allocator);

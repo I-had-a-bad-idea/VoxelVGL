@@ -39,8 +39,37 @@ Mesh::Mesh(MeshData mesh_data) {
 }
 
 void Mesh::load_mesh_into_buffer(VmaAllocator allocator) {
+    // std::cout
+    //     << "vertices: " << data.vertices.size()
+    //     << " (" << data.vertices.size() * sizeof(Vertex) << " bytes)\n"
+    //     << "indices: " << data.indices.size()
+    //     << " (" << data.indices.size() * sizeof(uint32_t) << " bytes)\n"
+    //     << "total: "
+    //     << data.vertices.size() * sizeof(Vertex)
+    //     + data.indices.size() * sizeof(uint32_t)
+    //     << " bytes\n";
+
+
+    // VmaTotalStatistics stats{};
+    // vmaCalculateStatistics(allocator, &stats);
+
+    // std::cout
+    //     << "blockBytes:      " << stats.total.statistics.blockBytes << '\n'
+    //     << "allocationBytes: " << stats.total.statistics.allocationBytes << '\n'
+    //     << "blockCount:      " << stats.total.statistics.blockCount << '\n'
+    //     << "allocationCount: " << stats.total.statistics.allocationCount << '\n';
+
+
+
+    // std::cout << "Loading mesh into buffer...\n";
+
     v_buffer_size = VkDeviceSize {sizeof(Vertex) * data.vertices.size()};
     VkDeviceSize i_buffer_size {sizeof(uint32_t) * data.indices.size()};
+
+    if (v_buffer_size == 0 || i_buffer_size == 0) {
+        std::cerr << "Error: Mesh has no vertices or indices.\n";
+        return;
+    }
 
     VkBufferCreateInfo buffer_CI {
         .sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO,
@@ -55,6 +84,7 @@ void Mesh::load_mesh_into_buffer(VmaAllocator allocator) {
     };
     VmaAllocationInfo v_buffer_alloc_info {};
     vk_check(vmaCreateBuffer(allocator, &buffer_CI, &v_buffer_alloc_CI, &v_buffer, &v_buffer_allocation, &v_buffer_alloc_info));
+
     
     // copy data into buffer
     memcpy(v_buffer_alloc_info.pMappedData, data.vertices.data(), v_buffer_size);

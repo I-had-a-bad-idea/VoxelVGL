@@ -201,7 +201,7 @@ void Renderer::render_scene(const Scene& scene) {
 
     // std::cout << "Rendering scene with " << scene.objects.size() << " objects...\n";
     // For each shader do the pipeline
-    // std::cout << "There are " << shader_to_objects.size() << " unique shaders in the scene\n";
+    // std::cout << "There are " << scene.objects_by_mesh_by_shader.size() << " unique shaders in the scene\n";
     object_index = 0;
     for (const auto& [shader, meshes] : scene.objects_by_mesh_by_shader) {
         // std::cout << "There are " << meshes.size() << " unique meshes in the scene\n";
@@ -243,6 +243,7 @@ void Renderer::render_scene(const Scene& scene) {
             object_index += object_count; // so that shader knows which one it is
         }
     }
+    // std::cout << "There are " << object_index << " visible objects in the scene\n";
     vkCmdEndRendering(cb);
     // std::cout << "Finished rendering scene\n";
     // transition swapchain image to a layout for presentation

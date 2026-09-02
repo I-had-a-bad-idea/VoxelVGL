@@ -1,39 +1,12 @@
 #include "VGL/object.h"
 
 Mesh::Mesh(std::string path) {
-    tinyobj::attrib_t attrib;
-    std::vector<tinyobj::shape_t> shapes;
-    std::vector<tinyobj::material_t> materials;
-
-    // if no exist throw error
-    if (!std::filesystem::exists(path)) {
-        std::cerr << "File does not exist: " << path << std::endl;
-        exit(EXIT_FAILURE);
-    }
-
-    vk_check(tinyobj::LoadObj(&attrib, &shapes, &materials, nullptr, nullptr, path.c_str())); // load file
-    
-
-    index_count = VkDeviceSize {shapes[0].mesh.indices.size()};
-    //load vertex and index data
-    for (auto& index : shapes[0].mesh.indices) {
-        Vertex v{
-            .pos = {attrib.vertices[index.vertex_index * 3], attrib.vertices[index.vertex_index * 3 + 1], attrib.vertices[index.vertex_index * 3 + 2]},
-            .normal = {attrib.normals[index.normal_index * 3], attrib.normals[index.normal_index * 3 + 1], attrib.normals[index.normal_index * 3 + 2]},
-            .uv = {attrib.texcoords[index.texcoord_index * 2], 1.0 - attrib.texcoords[index.texcoord_index * 2 + 1]}
-        };
-        data.vertices.push_back(v);
-        data.indices.push_back(data.indices.size());
-    }
+    std::cerr << "Loading from obj files is not supported using this fork!" << std::endl;
+    exit(EXIT_FAILURE);
 }
 
 Mesh::Mesh(MeshData mesh_data) {
     data = std::move(mesh_data);
-    
-    for (auto& vertex : data.vertices) {
-        vertex.uv.y = 1.0f - vertex.uv.y;
-    }
-
 
     index_count = static_cast<VkDeviceSize>(data.indices.size());
 }

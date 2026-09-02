@@ -22,10 +22,10 @@
 #include "VGL/math.h"
 
 struct Vertex {
-    glm::vec3 pos;
-    glm::vec3 normal;
-    glm::vec2 uv;
-    glm::uvec2 atlas_tile;
+    uint32_t pos;
+    uint32_t normal;
+    uint32_t uv;
+    uint32_t atlas_tile;
 };
 
 class MeshData {

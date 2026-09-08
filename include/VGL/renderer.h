@@ -53,8 +53,8 @@ class Scene {
 class Renderer {
 public:
     static constexpr uint32_t max_frames_in_flight = 2;
-    static constexpr uint32_t max_textures = 4096;
-    static constexpr uint32_t max_objects = 4096;
+    static constexpr uint32_t max_textures = 1024;
+    static constexpr uint32_t max_objects = 16276;
 
     Renderer(std::string name, int w, int h, bool capture_mouse, SDL_Window* window = nullptr, bool wireframe = false, uint32_t preferred_device_index = UINT32_MAX);
 

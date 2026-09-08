@@ -21,7 +21,7 @@ struct ShaderData {
     float4x4 projection;
     float4x4 view;
     float4 lightPos;
-    ObjectData objects[4096];
+    ObjectData objects[16276];
 };
 
 struct VSOutput {

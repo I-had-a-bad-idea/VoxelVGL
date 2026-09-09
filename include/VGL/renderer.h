@@ -38,6 +38,7 @@ class Scene {
         glm::vec4 clear_color {0.0f, 0.0f, 0.0f, 0.0f};
 
         float fovy = 45.0f;
+        Frustum frustum;
 
         float near_plane {0.1f};
         float far_plane {32.0f};
@@ -63,7 +64,7 @@ public:
     Texture load_texture(std::string filepath);
     Shader load_shader(std::string filepath);
 
-    void render_scene(const Scene& scene);
+    void render_scene(Scene& scene);
 
     void destroy_mesh(Mesh mesh);
     void destroy_meshes(const std::vector<Mesh> meshes);

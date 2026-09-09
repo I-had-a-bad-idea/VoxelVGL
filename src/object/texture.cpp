@@ -156,7 +156,8 @@ void Texture::load_image_into_buffer(VkPhysicalDevice physical_device, VkDevice 
         .minFilter = VK_FILTER_LINEAR,
         .mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR,
         .anisotropyEnable = VK_TRUE, // enable anisotropic filter to reduce blur and aliasing
-        .maxAnisotropy = 8.0f, // 8 is a widely supported value for max anisotropy
+        .maxAnisotropy = 16.0f, // 16 is max quality
+        .minLod = 0.0f,
         .maxLod = (float)ktx_texture->numLevels
     };
     vk_check(vkCreateSampler(device, &sampler_CI, nullptr, &sampler));

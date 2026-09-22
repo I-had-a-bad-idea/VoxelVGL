@@ -1,5 +1,8 @@
 # VoxelVGL
-A "fork" of VGL, that focuses on Voxel games
+A "fork" of VGL, that focuses on Voxel games.   
+There are changes in this "fork", that could not be added to VGL without breaking it for everthing except voxel games.  
+
+If you just need a normal rendering library, have a look at [VGL](https://github.com/I-had-a-bad-idea/VGL).
 
 ## Fork part
 
@@ -8,9 +11,33 @@ A "fork" of VGL, that focuses on Voxel games
 3. Now you can fetch/merge from VGL (`upstream`)
 4. and push to this fork (`origin`)
 
+## Changes in this fork
+
+### Vertices
+Each Vertex now has a new atttribute `atlas_tile`, that can be used to allow for greedy meshing without stretched textures.     
+Instead of `glm::vec3`s/`glm::vec2` for the position, normal and uv, it instead uses a `uint32_t` for all fields (making the whole Vertex smaller). This does mean, that you have to pack your values into 32bits, instead of just setting them.     
+
+### Scenes
+Object count has ben increased to 16276 (from 4096) to allow for a lot of chunks (if you don't combine them).       
+Max texture count has been reduced to 1024 (from 4096), since you probably won't need so many.      
+> Both of these can be changed (at the cost of a bit of memory), but for most cases this should be enough
+
+### Mesh loading
+Mesh loading from an `.obj` file is no longer supported, as due to the [changes to the vertices](#vertices)
+
+### Rendering pipeline
+The `maxAnistropy` in the pipeline was set to 16.0 instead of 8.0m to reduce blur and aliasing.
+
+
+
 ## Overview
 - [VoxelVGL](#voxelvgl)
   - [Fork part](#fork-part)
+  - [Changes in this fork](#changes-in-this-fork)
+    - [Vertices](#vertices)
+    - [Scenes](#scenes)
+    - [Mesh loading](#mesh-loading)
+    - [Rendering pipeline](#rendering-pipeline)
   - [Overview](#overview)
   - [Including the library](#including-the-library)
   - [Usage](#usage)
